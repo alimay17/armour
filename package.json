@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/thecodercoder/frontend-boilerplate#readme",
   "devDependencies": {
-    "gulp-clean-css": "^4.3.0"
+    "gulp-clean-css": "^4.3.0",
+    "gulp-htmlmin": "^5.0.1"
   },
   "dependencies": {
     "autoprefixer": "^10.2.6",

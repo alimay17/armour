@@ -8,6 +8,7 @@ const {
 	parallel
 } = require('gulp');
 // Importing all the Gulp-related packages we want to use
+const htmlmin = require('gulp-htmlmin');
 const sass = require('gulp-sass')(require('sass'));
 const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
@@ -20,24 +21,31 @@ const browsersync = require('browser-sync').create();
 
 // File paths
 const files = {
-	scssPath: 'app/scss/**/*.scss',
+	// scssPath: 'app/scss/**/*.scss',
+	htmlPath: 'app/html/**/*.html',
 	jsPath: 'app/js/**/*.js',
 	cssPath: 'app/css/**/**.css',
 };
 
 // Sass task: compiles the style.scss file into style.css
-function scssTask() {
-	return src(files.scssPath, {
-			sourcemaps: true
-		}) // set source and turn on sourcemaps
-		.pipe(sass()) // compile SCSS to CSS
-		.pipe(postcss([autoprefixer(), cssnano()])) // PostCSS plugins
-		.pipe(dest('dist', {
-			sourcemaps: '.'
-		})); // put final CSS in dist folder with sourcemap
+// function scssTask() {
+// 	return src(files.scssPath, {
+// 			sourcemaps: true
+// 		}) // set source and turn on sourcemaps
+// 		.pipe(sass()) // compile SCSS to CSS
+// 		.pipe(postcss([autoprefixer(), cssnano()])) // PostCSS plugins
+// 		.pipe(dest('dist', {
+// 			sourcemaps: '.'
+// 		})); // put final CSS in dist folder with sourcemap
+// }
+
+function htmlTask() {
+	return src(files.htmlPath)
+    .pipe(htmlmin({ collapseWhitespace: true }))
+    .pipe(dest('dist/html'));
 }
 
-// CSS task:
+// CSS task: concatenates and minifies CSS files to style.min.css
 function cssTask() {
 	return src(files.cssPath, {
 			sourcemaps: true
@@ -110,11 +118,11 @@ function browserSyncReload(cb) {
 // If any change, run scss and js tasks simultaneously
 function watchTask() {
 	watch(
-		[files.cssPath, files.jsPath], {
+		[files.cssPath, files.jsPath, files.htmlPath], {
 			interval: 1000,
 			usePolling: true
 		}, //Makes docker work
-		series(parallel(cssTask, jsTask), cacheBustTask)
+		series(parallel(htmlTask, cssTask, jsTask), cacheBustTask)
 	);
 }
 
@@ -123,24 +131,25 @@ function watchTask() {
 // watch SCSS and JS files for changes, run scss and js tasks simultaneously and update browsersync
 function bsWatchTask() {
 	watch('index.html', browserSyncReload);
+	watch(files.htmlPath, browserSyncReload);
 	watch(
 		[files.cssPath, files.jsPath], {
 			interval: 1000,
 			usePolling: true
 		}, //Makes docker work
-		series(parallel(cssTask, jsTask), cacheBustTask, browserSyncReload)
+		series(parallel(htmlTask, cssTask, jsTask), cacheBustTask, browserSyncReload)
 	);
 }
 
 // Export the default Gulp task so it can be run
 // Runs the scss and js tasks simultaneously
 // then runs cacheBust, then watch task
-exports.default = series(parallel(cssTask, jsTask), cacheBustTask, watchTask);
+exports.default = series(parallel(htmlTask, cssTask, jsTask), cacheBustTask, watchTask);
 
 // Runs all of the above but also spins up a local Browsersync server
 // Run by typing in "gulp bs" on the command line
 exports.bs = series(
-	parallel(cssTask, jsTask),
+	parallel(htmlTask, cssTask, jsTask),
 	cacheBustTask,
 	browserSyncServe,
 	bsWatchTask
