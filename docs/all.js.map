@@ -1,0 +1,1 @@
+{"version":3,"sources":["modules/testing.js","main.js"],"names":["itWorks","console","log"],"mappings":"AAAA,SAAAA,UACAC,QAAAC,IAAA,WACA,CCFAD,QAAAC,IAAA,kBAGAF","file":"all.js","sourcesContent":["function itWorks(){\r\n  console.log('It Works')\r\n}","console.log(\"Load script.js\");\r\n\r\n\r\nitWorks();"]}
