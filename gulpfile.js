@@ -122,7 +122,7 @@ function watchTask() {
 			interval: 1000,
 			usePolling: true
 		}, //Makes docker work
-		series(parallel(htmlTask, cssTask, jsTask), cacheBustTask)
+		series(parallel(htmlTask, cssTask, jsTask))
 	);
 }
 
@@ -137,20 +137,19 @@ function bsWatchTask() {
 			interval: 1000,
 			usePolling: true
 		}, //Makes docker work
-		series(parallel(htmlTask, cssTask, jsTask), cacheBustTask, browserSyncReload)
+		series(parallel(htmlTask, cssTask, jsTask), browserSyncReload)
 	);
 }
 
 // Export the default Gulp task so it can be run
 // Runs the scss and js tasks simultaneously
 // then runs cacheBust, then watch task
-exports.default = series(parallel(htmlTask, cssTask, jsTask), cacheBustTask, watchTask);
+exports.default = series(parallel(htmlTask, cssTask, jsTask), watchTask);
 
 // Runs all of the above but also spins up a local Browsersync server
 // Run by typing in "gulp bs" on the command line
 exports.bs = series(
 	parallel(htmlTask, cssTask, jsTask),
-	cacheBustTask,
 	browserSyncServe,
 	bsWatchTask
 );
