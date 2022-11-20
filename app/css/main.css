@@ -1,7 +1,79 @@
-* {
+/*=============================================
+=            Style Sheet for Armour App       =
+= Author: Alice Smith
+=============================================*/
+/* fonts and color */
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300&family=Nanum+Gothic&display=swap');
+
+:root {
+  --grey: #c1c1c1;
+  --blue: #2c4251;
+  --pink: #d16666;
+  --green: #b6c649;
+  --white: #ffffff;
+  --black: #181616;
+}
+
+*{
   box-sizing: border-box;
 }
 
-main {
-  background-color: blue;
+body{
+  background-color: var(--grey);
 }
+
+main {
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size: 1em;
+  padding: 5px;
+  max-width: 700px;
+  margin: 5px auto 5px auto;
+}
+
+h1, h2, h3 {
+  font-family: 'Exo 2', sans-serif;
+  color: var(--blue);
+  text-align: center;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+header {
+  background-color: var(--pink);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/*----------  Meal Search  ----------*/
+#mealSearch {
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+}
+
+#mealSearch input, select {
+  margin: 2px;
+  padding: 5px;
+  width: 100%;
+  text-align: center;
+  border-radius: 5px;
+}
+
+/*----------  Meal Display  ----------*/
+#mealCal{
+  border: 1px solid var(--blue);
+  width: 100%;
+  border-radius: 5px;
+  margin: 5px auto 10px;
+  padding: 5px;
+}
+
+/*----------  Meal Detail  ----------*/
+
+
+
+
+
+/*=====  End of Style Sheet for Armour App===*/

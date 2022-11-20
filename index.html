@@ -5,35 +5,44 @@
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title></title>
-
   <!-- CSS File -->
-  <link rel="stylesheet" href="dist/style.min.css?cb=1668960295533">
+  <link rel="stylesheet" href="dist/style.min.css?cb=1668961805503">
+  <title>Home | Armour Meals</title>
 </head>
 
 <body>
-
   <main>
-    <section class="content">
-      <h1>Front-end Boilerplate</h1>
-      <h2>Using Sass and Gulp</h2>
+    <header>
+      <h1>Armour Meals</h1>
+      <p>Your protection from decision Fatigue</p>
+      <button class="nav"><a href="app/html/myMeals.html">My Meals</a></button>
+    </header>
 
-      <p>
-        Here's a quick set-up guide:
-      </p>
-
-      <ul>
-        <li>Clone Git repo</li>
-        <li>Install by running "npm install" on the commmand line</li>
-        <li>Run "gulp bs" on the command line.</li>
-      </ul>
-
+    <section id="search">
+      <h2>Find Meals</h2>
+      <form action="/findMeals" id="mealSearch">
+        <select name="mealType" id="mealType" selected="any">
+          <option value="any">Any</option>
+          <option value="breakfast">Breakfast</option>
+          <option value="lunch">Lunch</option>
+          <option value="dinner">Dinner</option>
+        </select>
+        <label> Enter a search term <br>
+          <input type="text">
+        </label>
+      </form>
     </section>
-
+    <section id="searchResults">
+      <h2>Search Results</h2>
+      <ul id="resultsList">
+        <li><button class="buttonResult" id="result1">Result 01</button></li>
+      </ul>
+      <button id="saveMeal">Save to My Meals</button>
+    </section>
   </main>
 
   <!-- JavaScript File -->
-  <script src="dist/all.js?cb=1668960295533"></script>
+  <script src="dist/all.js?cb=1668961805503"></script>
 </body>
 
 </html>
