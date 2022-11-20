@@ -27,18 +27,6 @@ const files = {
 	cssPath: 'app/css/**/**.css',
 };
 
-// Sass task: compiles the style.scss file into style.css
-// function scssTask() {
-// 	return src(files.scssPath, {
-// 			sourcemaps: true
-// 		}) // set source and turn on sourcemaps
-// 		.pipe(sass()) // compile SCSS to CSS
-// 		.pipe(postcss([autoprefixer(), cssnano()])) // PostCSS plugins
-// 		.pipe(dest('dist', {
-// 			sourcemaps: '.'
-// 		})); // put final CSS in dist folder with sourcemap
-// }
-
 function htmlTask() {
 	return src(files.htmlPath)
     .pipe(htmlmin({ collapseWhitespace: true }))
@@ -87,14 +75,6 @@ function jsTask() {
 		.pipe(dest('docs', {
 			sourcemaps: '.'
 		}));
-}
-
-// Cachebust
-function cacheBustTask() {
-	var cbString = new Date().getTime();
-	return src(['index.html'])
-		.pipe(replace(/cb=\d+/g, 'cb=' + cbString))
-		.pipe(dest('.'));
 }
 
 // Browsersync to spin up a local server

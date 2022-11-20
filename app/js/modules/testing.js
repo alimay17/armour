@@ -1,3 +1,3 @@
-export function itWorks(){
+function itWorks(){
   console.log('It Works')
 }
