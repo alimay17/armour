@@ -42,7 +42,13 @@ const files = {
 function htmlTask() {
 	return src(files.htmlPath)
     .pipe(htmlmin({ collapseWhitespace: true }))
-    .pipe(dest('dist/html'));
+    .pipe(dest('docs/html'));
+}
+
+function indexTask() {
+	return src('index.html')
+	.pipe(htmlmin({ collapseWhitespace: true }))
+    .pipe(dest('docs'));
 }
 
 // CSS task: concatenates and minifies CSS files to style.min.css
@@ -61,7 +67,7 @@ function cssTask() {
 		}))
 		.pipe(concat('style.min.css'))
 		.pipe(postcss([autoprefixer(), cssnano]))
-		.pipe(dest('dist', {
+		.pipe(dest('docs', {
 			sourcemaps: '.'
 		}))
 }
@@ -78,7 +84,7 @@ function jsTask() {
 		)
 		.pipe(concat('all.js'))
 		.pipe(terser())
-		.pipe(dest('dist', {
+		.pipe(dest('docs', {
 			sourcemaps: '.'
 		}));
 }
@@ -122,7 +128,7 @@ function watchTask() {
 			interval: 1000,
 			usePolling: true
 		}, //Makes docker work
-		series(parallel(htmlTask, cssTask, jsTask))
+		series(parallel(indexTask, htmlTask, cssTask, jsTask))
 	);
 }
 
@@ -137,19 +143,19 @@ function bsWatchTask() {
 			interval: 1000,
 			usePolling: true
 		}, //Makes docker work
-		series(parallel(htmlTask, cssTask, jsTask), browserSyncReload)
+		series(parallel(indexTask, htmlTask, cssTask, jsTask), browserSyncReload)
 	);
 }
 
 // Export the default Gulp task so it can be run
 // Runs the scss and js tasks simultaneously
 // then runs cacheBust, then watch task
-exports.default = series(parallel(htmlTask, cssTask, jsTask), watchTask);
+exports.default = series(parallel(indexTask, htmlTask, cssTask, jsTask), watchTask);
 
 // Runs all of the above but also spins up a local Browsersync server
 // Run by typing in "gulp bs" on the command line
 exports.bs = series(
-	parallel(htmlTask, cssTask, jsTask),
+	parallel(indexTask, htmlTask, cssTask, jsTask),
 	browserSyncServe,
 	bsWatchTask
 );
