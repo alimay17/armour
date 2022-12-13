@@ -23,8 +23,7 @@ const browsersync = require('browser-sync').create();
 const files = {
 	// scssPath: 'app/scss/**/*.scss',
 	htmlPath: 'app/html/**/*.html',
-	jsModules: 'app/js/modules/*.js',
-	jsMain: 'app/js*.js',
+	jsPath: 'app/js/**/*.js',
 	cssPath: 'app/css/**/**.css',
 };
 
@@ -65,8 +64,7 @@ function cssTask() {
 function jsTask() {
 	return src(
 			[
-				files.jsModules,
-				'includes/js/main.js'
+				files.jsPath
 				//,'!' + 'includes/js/jquery.min.js', // to exclude any specific files
 			], {
 				sourcemaps: true
