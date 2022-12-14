@@ -23,7 +23,8 @@ const browsersync = require('browser-sync').create();
 const files = {
 	// scssPath: 'app/scss/**/*.scss',
 	htmlPath: 'app/html/**/*.html',
-	jsPath: 'app/js/**/*.js',
+	jsModules: 'app/js/modules/*.js',
+	jsMain: 'app/js/main.js',
 	cssPath: 'app/css/**/**.css',
 };
 
@@ -64,7 +65,8 @@ function cssTask() {
 function jsTask() {
 	return src(
 			[
-				files.jsPath,
+				files.jsModules,
+				files.jsMain
 				//,'!' + 'includes/js/jquery.min.js', // to exclude any specific files
 			], {
 				sourcemaps: true
@@ -104,7 +106,7 @@ function browserSyncReload(cb) {
 // If any change, run scss and js tasks simultaneously
 function watchTask() {
 	watch(
-		[files.cssPath, files.jsPath, files.htmlPath], {
+		[files.cssPath, files.jsModules, files.jsMain, files.htmlPath], {
 			interval: 1000,
 			usePolling: true
 		}, //Makes docker work
@@ -119,7 +121,7 @@ function bsWatchTask() {
 	watch('index.html', browserSyncReload);
 	watch(files.htmlPath, browserSyncReload);
 	watch(
-		[files.cssPath, files.jsPath], {
+		[files.cssPath, files.jsModules, files.jsMain ], {
 			interval: 1000,
 			usePolling: true
 		}, //Makes docker work

@@ -24,20 +24,18 @@
         <select name="mealType" id="mealType" selected="any">
           <option value="any">Any</option>
           <option value="breakfast">Breakfast</option>
-          <option value="lunch">Lunch</option>
-          <option value="dinner">Dinner</option>
+          <option value="main">Main Course</option>
+          <option value="desert">Desert</option>
         </select>
         <label> Enter a search term <br>
           <input type="text">
         </label>
+        <button type="submit" id="mealSearch">Search</button>
       </form>
     </section>
     <section id="searchResults">
       <h2>Search Results</h2>
-      <ul id="resultsList">
-        <li><button class="buttonResult" id="result1">Result 01</button></li>
-      </ul>
-      <button id="saveMeal">Save to My Meals</button>
+      <ul id="resultsList"></ul>
     </section>
   </main>
 
