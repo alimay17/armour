@@ -1,23 +1,32 @@
 console.log("Main");
 
+function addEventListeners(){
+  const recipes = document.getElementsByClassName('recipe');
+  console.log(recipes);
+  Array.from(recipes).forEach(r => {
+    r.addEventListener('click', function(event){
+    event.preventDefault();
+    let id = event.target.id;
+  });
+});
+}
+
 function searchDisplay(result){
   let resultList = document.getElementById('resultsList');
   resultList.innerHTML = '';
   result.forEach(r => {
     let li = document.createElement('li');
-    let link = document.createElement('a');
+    let link = document.createElement('p');
     let linkText = document.createTextNode(r.title);
       link.appendChild(linkText);
-      link.title = r.title;
-      link.href = r.sourceUrl;
+      link.setAttribute('class', 'recipe');
+      link.setAttribute('id', r.id);
       li.appendChild(link);
-    // let save = document.createElement('button');
-    // save.innerText = 'Save to Meals';
-    // li.appendChild(save);
     resultList.appendChild(li);
-    console.log(r);
   });
+  addEventListeners();
 }
+
 
 const mealSearch = document.getElementById('mealSearch');
 mealSearch.addEventListener('click', function(event) {
@@ -25,5 +34,9 @@ mealSearch.addEventListener('click', function(event) {
   let searchForm = document.getElementById('mealSearch');
   let type = searchForm[0].value;
   let value = searchForm[1].value;
-  apiConnect.search(type, value).then(result => searchDisplay(result))
+  apiConnect.search(type, value).then(result => searchDisplay(result));
 });
+
+
+
+
