@@ -35,6 +35,7 @@ function detailDisplay(result){
 
 /*----------  Main ----------*/
 let page = window.location.href;
+console.log(page);
 
 if(page.includes('index.html')){
   const mealSearch = document.getElementById('mealSearch');
