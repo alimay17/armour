@@ -31,13 +31,13 @@ const files = {
 function htmlTask() {
 	return src(files.htmlPath)
     .pipe(htmlmin({ collapseWhitespace: true }))
-    .pipe(dest('docs/html'));
+    .pipe(dest('dist/html'));
 }
 
 function indexTask() {
 	return src('index.html')
 	.pipe(htmlmin({ collapseWhitespace: true }))
-    .pipe(dest('docs'));
+    .pipe(dest('dist'));
 }
 
 // CSS task: concatenates and minifies CSS files to style.min.css
@@ -56,7 +56,7 @@ function cssTask() {
 		}))
 		.pipe(concat('style.min.css'))
 		.pipe(postcss([autoprefixer(), cssnano]))
-		.pipe(dest('docs', {
+		.pipe(dest('dist', {
 			sourcemaps: '.'
 		}))
 }
@@ -74,7 +74,7 @@ function jsTask() {
 		)
 		.pipe(concat('all.js'))
 		.pipe(terser())
-		.pipe(dest('docs', {
+		.pipe(dest('dist', {
 			sourcemaps: '.'
 		}));
 }
