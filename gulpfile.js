@@ -35,7 +35,7 @@ function htmlTask() {
 }
 
 function indexTask() {
-	return src('index.html')
+	return src('app/index.html')
 	.pipe(htmlmin({ collapseWhitespace: true }))
     .pipe(dest('dist'));
 }
